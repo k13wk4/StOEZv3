@@ -1,0 +1,91 @@
+/* Базові змінні та стилі */
+:root {
+    --primary-color: #2563eb; /* blue-600 */
+    --secondary-color: #fcd34d; /* yellow-300 */
+    --text-color: #333;
+    --bg-gradient-start: #d1e5f8;
+    --bg-gradient-end: #f0f4f9;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+}
+
+.highlight {
+    background-color: var(--secondary-color);
+    color: #1f2937; /* gray-800 */
+    border-radius: 0.25rem;
+    padding: 0 2px;
+    font-weight: 600;
+}
+
+.result-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 1rem;
+}
+
+.result-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.em-card {
+    border-left: 4px solid #b91c1c; /* red-700 */
+}
+
+.kvpia-card {
+    border-left: 4px solid #1e40af; /* blue-800 */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: none;
+}
+
+/* --- ФІНАЛЬНІ СТИЛІ ДЛЯ АНІМАЦІЙ ТА ПОСИЛАНЬ --- */
+
+/* Плавний перехід для анімації розкриття блоків */
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+/* Надійні селектори для іконок з анімацією */
+.toggle-arrow, .toggle-icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Клас для повороту стрілки */
+.rotate-90 {
+    transform: rotate(90deg);
+}
+
+/* Клас для легкого повороту основної іконки (блискавка, дужки) */
+.rotate-12 {
+    transform: rotate(12deg);
+}
+
+/* Стилізація для клікабельних посилань в деталях */
+.details-container a {
+    color: #2563eb; /* blue-600 */
+    text-decoration: none;
+    font-weight: 500;
+}
+.details-container a:hover {
+    text-decoration: underline;
+}

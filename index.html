@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пошук обладнання</title>
+    <!-- Підключення шрифту Inter з Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Підключення іконок Heroicons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Підключення власного файлу стилів -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex flex-col items-center py-12 px-4 md:px-6">
+    <div class="w-full max-w-4xl bg-white p-6 md:p-8 rounded-xl shadow-2xl border border-gray-200 transition-all duration-300">
+
+        <!-- Заголовок -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Пошук обладнання</h1>
+            <p class="text-gray-500 mt-2">Знайдіть ЕМ, КВПіА, датчики та багато іншого.</p>
+        </header>
+
+        <!-- Контейнер пошуку та фільтрації -->
+        <div id="controls-container" class="flex flex-col md:flex-row gap-4 mb-8">
+            <div id="search-container" class="relative flex-grow">
+                <input type="text" id="search" placeholder="Введіть запит для пошуку..."
+                    class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-sm">
+                <svg class="w-6 h-6 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </div>
+            <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+                <div id="filter-workshop" class="relative flex-grow">
+                    <select id="workshop-filter" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-sm appearance-none pr-8">
+                        <option value="">Усі цехи</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div id="filter-line" class="relative flex-grow">
+                    <select id="line-filter" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 shadow-sm appearance-none pr-8">
+                        <option value="">Усі лінії</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Стан завантаження -->
+        <div id="loading" class="text-center text-blue-500">
+            <p>Завантаження даних, зачекайте...</p>
+        </div>
+
+        <!-- Стан помилки -->
+        <div id="error-message" class="text-center text-red-500 hidden">
+            <p>Помилка завантаження даних. Будь ласка, переконайтеся, що файл `data.json` знаходиться у тому ж каталозі.</p>
+        </div>
+
+        <!-- Контейнер результатів -->
+        <div id="results" class="space-y-4 hidden animate-fade-in">
+            <p class="text-center text-gray-500">Почніть вводити запит, щоб побачити результати.</p>
+        </div>
+
+        <!-- Контейнер деталей -->
+        <div id="details-container" class="hidden animate-fade-in">
+            <button id="back-to-results" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors duration-200 mb-6 shadow-sm">
+                &larr; Назад до результатів
+            </button>
+            <div id="details-content"></div>
+        </div>
+    </div>
+    
+    <!-- Модальне вікно для відображення схеми -->
+    <div id="schematic-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-75 transition-opacity duration-300">
+        <div class="relative bg-white p-4 rounded-xl shadow-2xl max-w-4xl max-h-[90vh] mx-auto overflow-y-auto">
+            <button id="close-modal" class="absolute top-2 right-2 p-2 rounded-full bg-gray-200 text-gray-600 hover:bg-gray-300 transition-colors duration-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <img id="schematic-image" src="" alt="Схема обладнання" class="w-full h-auto rounded-lg">
+        </div>
+    </div>
+
+    <!-- Кнопка "Нагору" -->
+    <button id="scrollToTopButton" class="fixed bottom-6 right-6 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-all duration-300 hidden">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+    
+    <!-- Підключення власного файлу скриптів -->
+    <script src="script.js"></script>
+</body>
+</html>
