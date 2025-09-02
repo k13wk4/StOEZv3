@@ -139,11 +139,13 @@ document.addEventListener("DOMContentLoaded", () => {
         backToResultsButton.classList.remove("hidden");
 
         const createDetailRow = (label, value) => {
-            if (!value && typeof value !== 'number') return '';
+            if (value === null || value === undefined || value === '') return '';
+
+            // CORRECTED: This now correctly identifies links
             if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) {
                 return `<div><span class="font-semibold w-40 inline-block">${label}:</span><a href="${value}" target="_blank" rel="noopener noreferrer">${value}</a></div>`;
             }
-            if (typeof value === 'object' && value !== null) {
+            if (typeof value === 'object') {
                 const nestedDetails = Object.entries(value).map(([key, val]) => `<li><span class="font-medium">${key}:</span> ${highlightMatch(val, query)}</li>`).join('');
                 return `<div><span class="font-semibold w-40 inline-block">${label}:</span><ul class="list-disc list-inside ml-4 space-y-1">${nestedDetails}</ul></div>`;
             }
@@ -195,9 +197,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const arrowIcon = button.querySelector('.toggle-arrow');
             if (!target || !arrowIcon) return;
 
-            // Animate both icons with the same rotation
             arrowIcon.classList.toggle('rotate-90');
-            mainIcon?.classList.toggle('rotate-90'); // THE FIX: Changed from rotate-12 to rotate-90
+            mainIcon?.classList.toggle('rotate-90');
 
             if (target.style.maxHeight) {
                 target.style.maxHeight = null;

@@ -81,7 +81,7 @@ select {
 }
 
 /* Стилізація для клікабельних посилань в деталях */
-.details-container a {
+#details-container a {
     color: #2563eb; /* Яскравий синій колір (blue-600) */
     text-decoration: underline; /* Завжди підкреслені */
     text-decoration-thickness: 1px; /* Тонке підкреслення */
@@ -90,6 +90,6 @@ select {
     transition: color 0.2s ease; /* Плавна зміна кольору при наведенні */
 }
 
-.details-container a:hover {
+#details-container a:hover {
     color: #3b82f6; /* Світліший синій при наведенні (blue-500) */
 }
