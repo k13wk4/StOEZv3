@@ -82,10 +82,14 @@ select {
 
 /* Стилізація для клікабельних посилань в деталях */
 .details-container a {
-    color: #2563eb; /* blue-600 */
-    text-decoration: none;
+    color: #2563eb; /* Яскравий синій колір (blue-600) */
+    text-decoration: underline; /* Завжди підкреслені */
+    text-decoration-thickness: 1px; /* Тонке підкреслення */
+    text-underline-offset: 2px; /* Невеликий відступ підкреслення від тексту */
     font-weight: 500;
+    transition: color 0.2s ease; /* Плавна зміна кольору при наведенні */
 }
+
 .details-container a:hover {
-    text-decoration: underline;
+    color: #3b82f6; /* Світліший синій при наведенні (blue-500) */
 }
