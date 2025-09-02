@@ -13,6 +13,7 @@ body {
     background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
 }
 
+/* Стиль для підсвічування знайденого тексту */
 .highlight {
     background-color: var(--secondary-color);
     color: #1f2937; /* gray-800 */
@@ -21,16 +22,13 @@ body {
     font-weight: 600;
 }
 
-.result-item {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-radius: 1rem;
-}
-
+/* Стилізація карток з результатами */
 .result-item:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
+/* Декоративні рамки для карток в детальному огляді */
 .em-card {
     border-left: 4px solid #b91c1c; /* red-700 */
 }
@@ -39,15 +37,7 @@ body {
     border-left: 4px solid #1e40af; /* blue-800 */
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
-}
-
+/* Скидання стандартного вигляду для випадаючих списків */
 select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -56,7 +46,16 @@ select {
     background-image: none;
 }
 
-/* --- ФІНАЛЬНІ СТИЛІ ДЛЯ АНІМАЦІЙ ТА ПОСИЛАНЬ --- */
+/* Стилізація для посилання-заголовка */
+#home-link {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s ease;
+}
+
+#home-link:hover {
+    opacity: 0.8;
+}
 
 /* Плавний перехід для анімації розкриття блоків */
 .collapsible-content {
@@ -65,33 +64,35 @@ select {
     transition: max-height 0.3s ease-in-out;
 }
 
-/* Надійні селектори для іконок з анімацією */
-.toggle-arrow, .toggle-icon {
+/* Плавний перехід для анімації обертання іконок */
+.toggle-icon,
+.toggle-arrow {
     transition: transform 0.3s ease-in-out;
 }
 
-/* Клас для повороту стрілки */
+/* Клас для повороту іконок на 90 градусів */
 .rotate-90 {
     transform: rotate(90deg);
 }
 
-/* Клас для легкого повороту основної іконки (блискавка, дужки) */
-.rotate-12 {
-    transform: rotate(12deg);
-}
-
 /* Стилізація для клікабельних посилань в деталях */
 #details-container a {
-    color: #2563eb; /* Яскравий синій колір (blue-600) */
-    text-decoration: underline; /* Завжди підкреслені */
-    text-decoration-thickness: 1px; /* Тонке підкреслення */
-    text-underline-offset: 2px; /* Невеликий відступ підкреслення від тексту */
+    color: var(--primary-color);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
     font-weight: 500;
-    transition: color 0.2s ease; /* Плавна зміна кольору при наведенні */
+    transition: color 0.2s ease;
 }
 
 #details-container a:hover {
-    color: #3b82f6; /* Світліший синій при наведенні (blue-500) */
+    color: #3b82f6; /* blue-500 */
+}
+
+/* Стиль для візуального виділення активного фільтра */
+.filter-active {
+    border-color: #2563eb !important; /* blue-600 */
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2) !important;
 }
 
 /* Стилізація для неактивних опцій у фільтрах */
@@ -99,13 +100,16 @@ select option:disabled {
     color: #cccccc;
 }
 
-/* Стилізація для посилання-заголовка */
-#home-link {
-    text-decoration: none; /* Прибираємо підкреслення */
-    color: inherit; /* Успадковуємо колір тексту від батьківського елемента */
-    transition: opacity 0.2s ease; /* Плавний ефект при наведенні */
+/* Налаштування анімації появи результатів */
+.result-item {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fade-in-up 0.5s ease-out forwards;
 }
 
-#home-link:hover {
-    opacity: 0.7; /* Робимо заголовок трохи прозорішим при наведенні */
+@keyframes fade-in-up {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
