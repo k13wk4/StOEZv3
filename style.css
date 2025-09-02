@@ -93,3 +93,19 @@ select {
 #details-container a:hover {
     color: #3b82f6; /* Світліший синій при наведенні (blue-500) */
 }
+
+/* Стилізація для неактивних опцій у фільтрах */
+select option:disabled {
+    color: #cccccc;
+}
+
+/* Стилізація для посилання-заголовка */
+#home-link {
+    text-decoration: none; /* Прибираємо підкреслення */
+    color: inherit; /* Успадковуємо колір тексту від батьківського елемента */
+    transition: opacity 0.2s ease; /* Плавний ефект при наведенні */
+}
+
+#home-link:hover {
+    opacity: 0.7; /* Робимо заголовок трохи прозорішим при наведенні */
+}
