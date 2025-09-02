@@ -178,5 +178,31 @@ document.addEventListener("DOMContentLoaded", () => {
     // ... (addToggleDetailsListeners залишається без змін)
     function addToggleDetailsListeners() { document.querySelectorAll(".toggle-details").forEach(button => button.addEventListener("click", () => { const target = document.getElementById(button.dataset.target); const mainIcon = button.querySelector('.toggle-icon'); const arrowIcon = button.querySelector('.toggle-arrow'); if (!target || !arrowIcon) return; arrowIcon.classList.toggle('rotate-90'); mainIcon?.classList.toggle('rotate-90'); if (target.style.maxHeight) { target.style.maxHeight = null; } else { target.style.maxHeight = target.scrollHeight + "px"; } })); }
 
+    // --- PWA Installation Logic ---
+    const installBtn = document.getElementById('install-btn');
+    let installPromptEvent;
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+        // Не показуємо стандартний міні-банер (який і так не з'являється)
+        event.preventDefault();
+        // Зберігаємо подію, щоб викликати її пізніше
+        installPromptEvent = event;
+        // Показуємо нашу власну кнопку
+        installBtn.classList.remove('hidden');
+    });
+
+    installBtn.addEventListener('click', async () => {
+        if (!installPromptEvent) {
+            return;
+        }
+        // Показуємо системне вікно встановлення
+        const result = await installPromptEvent.prompt();
+        console.log(`Результат встановлення: ${result.outcome}`);
+        // Скидаємо подію, оскільки її можна використати лише раз
+        installPromptEvent = null;
+        // Ховаємо нашу кнопку
+        installBtn.classList.add('hidden');
+    });
+
     initialize();
 });

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'stoez-search-cache-v3.11'; // Оновіть версію, якщо змінюєте файли
+const CACHE_NAME = 'stoez-search-cache-v3.12'; // Оновіть версію, якщо змінюєте файли
 const FILES_TO_CACHE = [
     '/',
     'index.html',
