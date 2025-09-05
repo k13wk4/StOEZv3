@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let installPromptEvent;
 
     window.addEventListener('beforeinstallprompt', (event) => {
-        // Не показуємо стандартний міні-банер (який і так не з'являється)
+        // Не показуємо стандартний мінібанер (який і так не з'являється)
         event.preventDefault();
         // Зберігаємо подію, щоб викликати її пізніше
         installPromptEvent = event;
